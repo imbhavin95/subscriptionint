@@ -14,17 +14,6 @@ class SubscriptionController extends Controller
 {
     public function subscribe(Request $request)
     {
-        $websites = Websites::all();
-
-        foreach ($websites as $website){
-            $subscribers = $website->subscribers()->get();
-
-            foreach ($subscribers->all() as $subscriber){
-                print_r($subscriber->subscriber()->get()->all());
-            }
-        }
-exit;
-
         $validator = Validator::make($request->all(), [
             'subscriber_id' => 'required|numeric|exists:subscribers,id',
             'website_id' => 'required|numeric|exists:websites,id'
