@@ -38,4 +38,9 @@ class SubscriberWebsite extends Model
     {
         return $this->belongsTo(Subscribers::class, 'subscriber_id', 'id');
     }
+
+    public function website()
+    {
+        return $this->belongsTo(Websites::class, 'website_id', 'id');
+    }
 }

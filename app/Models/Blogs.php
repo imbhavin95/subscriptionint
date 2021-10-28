@@ -39,4 +39,9 @@ class Blogs extends Model
     {
         return $this->hasOne(SubscriberNotificationStatus::class);
     }
+
+    public function website()
+    {
+        return $this->belongsTo(Websites::class, 'website_id', 'id');
+    }
 }

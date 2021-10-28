@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Events\SendNotificationEvent;
 use App\Models\Blogs;
 use App\Models\SubscriberNotificationStatus;
 use Illuminate\Http\Request;
@@ -35,6 +36,13 @@ class BlogsController extends Controller
             $subscriberNotification = new SubscriberNotificationStatus();
             $subscriberNotification->blog_id = $blog->id;
             $subscriberNotification->save();
+
+            $website = $blog->website()->get()->first();
+            $subscribers = $website->subscribers()->get()->all();
+            foreach ($subscribers as $subscriber){
+                $userDetail = $subscriber->subscriber()->get()->first();
+                event(new SendNotificationEvent($userDetail, $blog, $website));
+            }
         }
         catch(QueryException $e){
             Log::error($e->getMessage());
