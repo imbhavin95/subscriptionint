@@ -35,11 +35,6 @@ class Blogs extends Model
         'updated_at' => 'datetime'
     ];
 
-    public function notificationStatus()
-    {
-        return $this->hasOne(SubscriberNotificationStatus::class);
-    }
-
     public function website()
     {
         return $this->belongsTo(Websites::class, 'website_id', 'id');

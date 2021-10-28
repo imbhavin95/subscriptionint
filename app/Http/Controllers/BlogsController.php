@@ -3,7 +3,6 @@ namespace App\Http\Controllers;
 
 use App\Events\SendNotificationEvent;
 use App\Models\Blogs;
-use App\Models\SubscriberNotificationStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
@@ -32,10 +31,6 @@ class BlogsController extends Controller
             $blog->description = $request->description;
             $blog->website_id = $request->website_id;
             $blog->save();
-
-            $subscriberNotification = new SubscriberNotificationStatus();
-            $subscriberNotification->blog_id = $blog->id;
-            $subscriberNotification->save();
 
             $website = $blog->website()->get()->first();
             $subscribers = $website->subscribers()->get()->all();
